@@ -4,6 +4,7 @@ module.exports.routes = {
 
   '/': { view: 'pages/homepage' },
   '/events': { view: 'events/index' },
+  '/user': { view: 'pages/userpage'},
 
   // API Routes
   'GET /api/events': 'EventController.fetchEvents',
