@@ -20,8 +20,13 @@ input, button {
 
 #map {
     width: 100%;
+<<<<<<< HEAD
     height: 500px;
     margin-top: 20px;
     border: 2px solid #333;
     border-radius: 10px;
+=======
+    height: 400px;
+    margin-top: 20px;
+>>>>>>> 0223981 (Updated event API server)
 }
