@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const MEETUP_API_KEY = "Replace_MEETUP_API_KEY";  // Replace with actual Meetup API key
 let map, userMarker;
 let markers = [];
@@ -76,10 +77,41 @@ async function fetchEvents() {
             if (event.venue && event.venue.lat && event.venue.lon) {
                 addMarker(event.venue.lat, event.venue.lon, event.name);
             }
+=======
+const API_URL = "http://localhost:1337/api/events";  // ✅ Correct API URL
+
+// ✅ Fetch all events from API
+async function fetchEvents() {
+    let zipCode = document.getElementById("zipCode").value;
+    let url = zipCode ? `${API_URL}?zipCode=${zipCode}` : API_URL;
+
+    try {
+        let response = await fetch(url);
+        let events = await response.json();
+        let eventsList = document.getElementById("events");
+        eventsList.innerHTML = "";
+
+        if (events.length === 0) {
+            eventsList.innerHTML = "<p>No events found for this ZIP Code.</p>";
+            return;
+        }
+
+        events.forEach(event => {
+            let eventDiv = document.createElement("div");
+            eventDiv.innerHTML = `
+                <strong>${event.name}</strong><br>
+                📍 ${event.location} | 🕒 ${event.date}<br>
+                ${event.description}<br>
+                <button onclick="showOnMap('${event.location}')">Show on Map</button>
+                <hr>
+            `;
+            eventsList.appendChild(eventDiv);
+>>>>>>> 0223981 (Updated event API server)
         });
 
     } catch (error) {
         console.error("Error fetching events:", error);
+<<<<<<< HEAD
         document.getElementById("events").innerHTML = "<p>Error loading events. Check console.</p>";
     }
 }
@@ -110,3 +142,35 @@ function navigateToEvent(eventLat, eventLng) {
     let url = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${eventLat},${eventLng}&travelmode=driving`;
     window.open(url, "_blank");
 }
+=======
+    }
+}
+
+// ✅ Show event location on Google Maps
+async function showOnMap(location) {
+    let geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ address: location }, (results, status) => {
+        if (status === "OK") {
+            map.setCenter(results[0].geometry.location);
+            new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert("Could not find location.");
+        }
+    });
+}
+
+// ✅ Initialize Google Map
+let map;
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 37.7749, lng: -122.4194 }, // Default to San Francisco
+        zoom: 12
+    });
+}
+
+fetchEvents();
+>>>>>>> 0223981 (Updated event API server)
