@@ -1,1 +1,18 @@
-[]
+[{
+    "id": "1742511140624",
+    "name": "Tech Meetup Seattle",
+    "location": "98101",
+    "date": "2025-10-15",
+    "description": "Networking event for developers and tech enthusiasts.",
+    "lat": 47.608013,
+    "lng": -122.335167
+  },
+  {
+    "id": "1742511140625",
+    "name": "Seattle Food Festival",
+    "location": "98109",
+    "date": "2025-08-22",
+    "description": "A festival featuring food from around the world.",
+    "lat": 47.620422,
+    "lng": -122.349358
+  }]
