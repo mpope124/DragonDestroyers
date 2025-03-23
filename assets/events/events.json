@@ -1,4 +1,23 @@
-[{
+[
+  {
+    "id": "1742511140626",
+    "name": "Green Lake Cleanup",
+    "location": "98103",
+    "date": "2025-09-10",
+    "description": "Community event to clean up Green Lake park.",
+    "lat": 47.6762,
+    "lng": -122.3251
+  },
+  {
+    "id": "1742511140627",
+    "name": "Seattle Startup Demo Day",
+    "location": "98104",
+    "date": "2025-11-01",
+    "description": "Local startups pitch their ideas to investors.",
+    "lat": 47.6026,
+    "lng": -122.3294
+  },
+  {
     "id": "1742511140624",
     "name": "Tech Meetup Seattle",
     "location": "98101",
@@ -15,4 +34,5 @@
     "description": "A festival featuring food from around the world.",
     "lat": 47.620422,
     "lng": -122.349358
-  }]
+  }
+]
