@@ -4,14 +4,14 @@ This page will allow the User to view/edit their information
 and view events the User has RSVP'ed to. 
 -->
 <body>
-  <!-- User Info (hard coded pull)-->
+  <!-- User Info -->
   <div> 
-    <h1>User Name</h1>
-    <img src="#"/>
+    <h1><%= user.name %></h1>
+    <img src="/images/default-user.png" alt="Avery Lane" class="profile-pic">
     <p>
-      <span>Email:</span> 
-      <span>Phone Number:</span>
-      <a href="/">Edit User Details</a>
+      <span>Email:</span> <%= user.email %><br>
+      <span>Phone Number:</span> <%= user.phone %><br>
+      <a href="/user/edit">Edit User Details</a>
     </p>
   </div>
 
@@ -19,15 +19,16 @@ and view events the User has RSVP'ed to.
   <div>
     <h2>Events you have joined:</h2>
 
-    <img src="#"/>
-    <p>
-      <h3>Event Details</h3>
-      <span>Name:</span> 
-      <span>Location:</span>
-      <span>Date & Time:</span>
-      <span>Description:</span>
-      <span>Event webpage:</span>
-    </p>
+    <% userEvents.forEach(event => { %>
+      <div class="event-card">
+        <h3><%= event.name %></h3>
+        <p><strong>Location:</strong> <%= event.location %></p>
+        <p><strong>Date:</strong> <%= event.date %></p>
+        <p><strong>Description:</strong> <%= event.description %></p>
+        <p><strong>Event ID:</strong> <%= event.id %></p>
+        <hr/>
+      </div>
+    <% }) %>
   </div>
 
   <!-- Return Home -->

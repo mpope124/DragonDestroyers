@@ -3,7 +3,15 @@ module.exports.routes = {
 
   '/': { view: 'pages/homepage' },
   '/events': { view: 'events/index' },
-  '/user': { view: 'pages/userpage'},
+  'GET /': 'HomeController.homepage',
+
+
+  // Route to user
+  'GET /userpage': 'UserController.showUserPage',
+
+  // Route to edit user details
+  'GET /user/edit': 'UserController.editForm',
+  'POST /user/update': 'UserController.updateInfo',
 
   // API Routes
   // 0223981 (Updated event API server)

@@ -1,0 +1,23 @@
+<!--
+This is your User Page.
+This page will allow the User to view/edit their information
+and view events the User has RSVP'ed to. 
+-->
+<body>
+  <h1>Edit User Details</h1>
+  <form action="/user/update" method="POST">
+    <label>Name:</label>
+    <input type="text" name="name" value="<%= user.name %>" required /><br/>
+
+    <label>Email:</label>
+    <input type="email" name="email" value="<%= user.email %>" required /><br/>
+
+    <label>Phone:</label>
+    <input type="text" name="phone" value="<%= user.phone %>" required /><br/>
+
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <br>
+  <a href="/userpage">Cancel</a>
+</body>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!--
 This is your default homepage.
 For more information, see:
@@ -7,22 +6,25 @@ For more information, see:
 -->
 <body>
   <ul>
-    <li>Home</li>
-    <li>List of Events</li>
-    <li>Add Event</li>
-    <li>Delete Event</li>
-    <li>Sign In</li>
-
+    <li><a href="/">Home</a></li>
+    <li><a href="/events">List of Events</a></li>
+    <li><a href="/event/add">Add Event</a></li>
+    <li><a href="/event/delete">Delete Event</a></li>
+    <li><a href="/userpage">User Profile</a></li>
   </ul>
+
   <h1 style="text-align: center">Event Mapper</h1><br>
   <p>Welcome to Event Mapper. Your home for protests, boycotts, and more across the Pacific Northwest</p><br>
+  
+  <!-- Showcase Featured Events -->
   <p>Today's featured events:</p>
-</body>
-=======
-<div class="container">
-  <h1>Event Mapper</h1>
-  <p>This is a test page.</p>
 
-</div>
-<p><a href="/events">Events</a></p>
->>>>>>> api-intergration/event-pages
+  <% featuredEvents.forEach(event => { %>
+    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+      <h3><%= event.name %></h3>
+      <p><strong>Date:</strong> <%= event.date %></p>
+      <p><strong>Location:</strong> <%= event.location %></p>
+      <p><%= event.description %></p>
+    </div>
+  <% }) %>
+</body>
