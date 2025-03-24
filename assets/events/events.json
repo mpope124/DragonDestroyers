@@ -1,5 +1,23 @@
 [
   {
+    "id": "1742511140628",
+    "name": "Dia De Muertis Festival Seattle",
+    "location": "98109",
+    "date": "2025-11-01",
+    "description": "The festival offers performances, elaborate altars, and sugar skull workshops for Día de Muertos.",
+    "lat": 47.62148, 
+    "lng": -122.35127
+  },
+  {
+    "id": "1742511140629",
+    "name": "Rach Fest",
+    "location": "98004",
+    "date": "2025-04-03",
+    "description": "Join the Redmond Tech Orchestra for a concert dedicated to the magnificent world of Sergei Rachmaninoff.",
+    "lat": 47.61569,
+    "lng": -122.19146
+  },
+  {
     "id": "1742511140626",
     "name": "Green Lake Cleanup",
     "location": "98103",
