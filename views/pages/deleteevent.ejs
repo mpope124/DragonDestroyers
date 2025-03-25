@@ -1,0 +1,21 @@
+<head>
+    <title>Delete Event</title>
+  </head>
+  <body>
+    <h1>Delete a Local Event</h1>
+  
+    <!-- Form posts to /events/local/delete, handled by EventController.handleDeleteForm -->
+    <form action="/events/local/delete" method="POST">
+      <label>Select Event to Delete:</label><br>
+      <select name="id" required>
+        <% events.forEach(event => { %>
+          <option value="<%= event.id %>"><%= event.name %> — <%= event.date %></option>
+        <% }) %>
+      </select><br><br>
+  
+      <button type="submit" style="color: red;">Delete Event</button>
+    </form>
+  
+    <br>
+    <a href="/">Return Home</a>
+  </body>

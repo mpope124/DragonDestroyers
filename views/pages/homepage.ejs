@@ -11,19 +11,20 @@ For more information, see:
     <li><a href="/event/add">Add Event</a></li>
     <li><a href="/event/delete">Delete Event</a></li>
     <li><a href="/userpage">User Profile</a></li>
+    <li><a href="/events/zip">Find Events by ZIP</a></li>
+
   </ul>
 
   <h1 style="text-align: center">Event Mapper</h1><br>
   <p>Welcome to Event Mapper. Your home for protests, boycotts, and more across the Pacific Northwest</p><br>
   
-  <!-- Showcase Featured Events -->
+  <!-- Showcase Featured Events (first 3 events listed) -->
   <p>Today's featured events:</p>
 
   <% featuredEvents.forEach(event => { %>
     <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
       <h3><%= event.name %></h3>
       <p><strong>Date:</strong> <%= event.date %></p>
-      <p><strong>Location:</strong> <%= event.location %></p>
       <p><%= event.description %></p>
     </div>
   <% }) %>

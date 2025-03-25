@@ -1,27 +1,85 @@
-const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
-const MEETUP_API_KEY = "YOUR_MEETUP_API_KEY"; // Replace with your actual Meetup API key
+// Path to events data
+const eventsPath = path.resolve(__dirname, '../../assets/events/events.json');
+
+// Load events from file
+function loadEvents() {
+  return JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+}
+
+// Save events to file
+function saveEvents(eventList) {
+  fs.writeFileSync(eventsPath, JSON.stringify(eventList, null, 2));
+}
 
 module.exports = {
-  async fetchEvents(req, res) {
-    try {
-      const zipCode = req.query.zip || "98101"; // Default ZIP Code if none provided
-      const url = `https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public&zip=${zipCode}&key=${MEETUP_API_KEY}`;
+  // Show the main event search/map page
+  showEventsPage: function (req, res) {
+    const events = loadEvents();
+    return res.view('pages/events', { events });
+  },
 
-      const response = await axios.get(url);
-      return res.json(response.data.events);
-    } catch (error) {
-      return res.serverError({ error: "Failed to fetch events", details: error.message });
+  // ======================
+  // 🔹 ADD EVENT
+  // ======================
+
+  // Show add event form
+  showAddForm: function (req, res) {
+    const message = req.session.message;
+    delete req.session.message;
+    return res.view('pages/addevent', { message });
+  },
+
+  // Handle form submission to add event
+  handleAddForm: function (req, res) {
+    const events = loadEvents();
+
+    const newEvent = {
+      id: Date.now().toString(),
+      name: req.body.name,
+      location: req.body.location,
+      date: req.body.date,
+      description: req.body.description,
+      lat: parseFloat(req.body.lat),
+      lng: parseFloat(req.body.lng)
+    };
+
+    events.push(newEvent);
+    saveEvents(events);
+
+    req.session.message = 'Event added successfully!';
+    return res.redirect('/event/add');
+  },
+
+  // ======================
+  // 🔹 DELETE EVENT
+  // ======================
+
+  // Show delete event form
+  showDeleteForm: function (req, res) {
+    const events = loadEvents();
+    const message = req.session.message;
+    delete req.session.message;
+    return res.view('pages/deleteevent', { events, message });
+  },
+
+  // Handle delete form submission
+  handleDeleteForm: function (req, res) {
+    let events = loadEvents();
+    const eventId = req.body.id;
+
+    const originalLength = events.length;
+    events = events.filter(event => event.id !== eventId);
+
+    if (events.length < originalLength) {
+      saveEvents(events);
+      req.session.message = 'Event deleted successfully.';
+    } else {
+      req.session.message = 'Event not found.';
     }
-  },
 
-  async addEvent(req, res) {
-    const { eventName, eventLocation } = req.body;
-    return res.json({ message: `Event "${eventName}" added at ${eventLocation} (simulation).` });
-  },
-
-  async deleteEvent(req, res) {
-    const eventId = req.params.id;
-    return res.json({ message: `Event ID ${eventId} deleted (simulation).` });
+    return res.redirect('/event/delete');
   }
 };

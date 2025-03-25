@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const MEETUP_API_KEY = "Replace_MEETUP_API_KEY";  // Replace with actual Meetup API key
 let map, userMarker;
 let markers = [];
@@ -77,36 +76,6 @@ async function fetchEvents() {
             if (event.venue && event.venue.lat && event.venue.lon) {
                 addMarker(event.venue.lat, event.venue.lon, event.name);
             }
-=======
-const API_URL = "http://localhost:1337/api/events";  // ✅ Correct API URL
-
-// ✅ Fetch all events from API
-async function fetchEvents() {
-    let zipCode = document.getElementById("zipCode").value;
-    let url = zipCode ? `${API_URL}?zipCode=${zipCode}` : API_URL;
-
-    try {
-        let response = await fetch(url);
-        let events = await response.json();
-        let eventsList = document.getElementById("events");
-        eventsList.innerHTML = "";
-
-        if (events.length === 0) {
-            eventsList.innerHTML = "<p>No events found for this ZIP Code.</p>";
-            return;
-        }
-
-        events.forEach(event => {
-            let eventDiv = document.createElement("div");
-            eventDiv.innerHTML = `
-                <strong>${event.name}</strong><br>
-                📍 ${event.location} | 🕒 ${event.date}<br>
-                ${event.description}<br>
-                <button onclick="showOnMap('${event.location}')">Show on Map</button>
-                <hr>
-            `;
-            eventsList.appendChild(eventDiv);
->>>>>>> 0223981 (Updated event API server)
         });
 
     } catch (error) {

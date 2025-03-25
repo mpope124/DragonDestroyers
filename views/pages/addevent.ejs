@@ -1,0 +1,38 @@
+<head>
+    <title>Add Event</title>
+  </head>
+  <body>
+    <h1>Add a Local Event</h1>
+    <% if (typeof message !== 'undefined' && message) { %>
+      <div style="background-color: #e0ffe0; padding: 10px; border: 1px solid #66cc66; margin-bottom: 15px;">
+        <%= message %>
+      </div>
+    <% } %>
+    
+  
+    <!-- Form posts to /events/local/add, handled by EventController.handleAddForm -->
+    <form action="/events/local/add" method="POST">
+      <label>Name:</label><br>
+      <input type="text" name="name" required /><br><br>
+  
+      <label>Location (Zip Code):</label><br>
+      <input type="text" name="location" required /><br><br>
+  
+      <label>Date:</label><br>
+      <input type="date" name="date" required /><br><br>
+  
+      <label>Description:</label><br>
+      <textarea name="description" required></textarea><br><br>
+  
+      <label>Latitude:</label><br>
+      <input type="text" name="lat" required /><br><br>
+  
+      <label>Longitude:</label><br>
+      <input type="text" name="lng" required /><br><br>
+  
+      <button type="submit">Add Event</button>
+    </form>
+  
+    <br>
+    <a href="/">Return Home</a>
+  </body>
