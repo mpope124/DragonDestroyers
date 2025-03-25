@@ -4,7 +4,7 @@
     "name": "Dia De Muertos Festival Seattle",
     "location": "98109",
     "date": "2025-11-01",
-    "time": "15:30",
+    "time": "11:00",
     "description": "The festival offers performances, elaborate altars, and sugar skull workshops for Día de Muertos.",
     "lat": 47.62148,
     "lng": -122.35127
@@ -24,7 +24,7 @@
     "name": "Green Lake Cleanup",
     "location": "98103",
     "date": "2025-09-10",
-    "time": "15:30",
+    "time": "10:30",
     "description": "Community event to clean up Green Lake park.",
     "lat": 47.6762,
     "lng": -122.3251
@@ -34,7 +34,7 @@
     "name": "Seattle Startup Demo Day",
     "location": "98104",
     "date": "2025-11-01",
-    "time": "15:30",
+    "time": "14:30",
     "description": "Local startups pitch their ideas to investors.",
     "lat": 47.6026,
     "lng": -122.3294
@@ -44,7 +44,7 @@
     "name": "Tech Meetup Seattle",
     "location": "98101",
     "date": "2025-10-15",
-    "time": "15:30",
+    "time": "17:00",
     "description": "Networking event for developers and tech enthusiasts.",
     "lat": 47.608013,
     "lng": -122.335167
@@ -54,7 +54,7 @@
     "name": "Seattle Food Festival",
     "location": "98109",
     "date": "2025-08-22",
-    "time": "15:30",
+    "time": "11:00",
     "description": "A festival featuring food from around the world.",
     "lat": 47.620422,
     "lng": -122.349358
