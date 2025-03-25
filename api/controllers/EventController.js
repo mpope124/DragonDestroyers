@@ -35,24 +35,24 @@ module.exports = {
   // Handle form submission to add event
   handleAddForm: function (req, res) {
     const events = loadEvents();
-
+  
     const newEvent = {
       id: Date.now().toString(),
       name: req.body.name,
       location: req.body.location,
-      date: req.body.date,
+      date: req.body.date,       // e.g. "2025-04-10"
+      time: req.body.time,       // e.g. "15:30"
       description: req.body.description,
       lat: parseFloat(req.body.lat),
       lng: parseFloat(req.body.lng)
     };
-
+  
     events.push(newEvent);
     saveEvents(events);
-
+  
     req.session.message = 'Event added successfully!';
     return res.redirect('/event/add');
   },
-
   // ======================
   // 🔹 DELETE EVENT
   // ======================

@@ -1,9 +1,10 @@
 [
   {
     "id": "1742511140628",
-    "name": "Dia De Muertis Festival Seattle",
+    "name": "Dia De Muertos Festival Seattle",
     "location": "98109",
     "date": "2025-11-01",
+    "time": "15:30",
     "description": "The festival offers performances, elaborate altars, and sugar skull workshops for Día de Muertos.",
     "lat": 47.62148,
     "lng": -122.35127
@@ -13,6 +14,7 @@
     "name": "Rach Fest",
     "location": "98004",
     "date": "2025-04-03",
+    "time": "15:30",
     "description": "Join the Redmond Tech Orchestra for a concert dedicated to the magnificent world of Sergei Rachmaninoff.",
     "lat": 47.61569,
     "lng": -122.19146
@@ -22,6 +24,7 @@
     "name": "Green Lake Cleanup",
     "location": "98103",
     "date": "2025-09-10",
+    "time": "15:30",
     "description": "Community event to clean up Green Lake park.",
     "lat": 47.6762,
     "lng": -122.3251
@@ -31,6 +34,7 @@
     "name": "Seattle Startup Demo Day",
     "location": "98104",
     "date": "2025-11-01",
+    "time": "15:30",
     "description": "Local startups pitch their ideas to investors.",
     "lat": 47.6026,
     "lng": -122.3294
@@ -40,6 +44,7 @@
     "name": "Tech Meetup Seattle",
     "location": "98101",
     "date": "2025-10-15",
+    "time": "15:30",
     "description": "Networking event for developers and tech enthusiasts.",
     "lat": 47.608013,
     "lng": -122.335167
@@ -49,6 +54,7 @@
     "name": "Seattle Food Festival",
     "location": "98109",
     "date": "2025-08-22",
+    "time": "15:30",
     "description": "A festival featuring food from around the world.",
     "lat": 47.620422,
     "lng": -122.349358

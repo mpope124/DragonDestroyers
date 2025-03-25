@@ -1,121 +1,275 @@
+<!--
+This is the Events Page.
+This page displays a map with event markers,
+a searchable list of events by ZIP code,
+and a modal popup with full event details and RSVP functionality.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Find Local Events</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <title>Find Local Events</title>
+    <style>
+    /* Map styles */
     #map {
       width: 100%;
       height: 400px;
       margin-bottom: 20px;
     }
+    /* Event Listing styles */
     .event {
       border: 1px solid #ccc;
       padding: 10px;
       margin-bottom: 10px;
     }
-    button {
-      margin-top: 10px;
+    .clickable {
+      text-decoration: underline;
     }
-  </style>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASy5UVV-2EFbOZFsatHtumZ1VEFY_84rU"></script>
-</head>
-<body>
-
-  <h1>Find Events by ZIP Code</h1>
-  <!-- Return Home -->
-  <a href="/">Return Home</a> <br>
-  
-  <!-- Search Events -->
-  <input type="text" id="zipCodeInput" placeholder="Enter ZIP Code" />
-  <button onclick="filterEvents()">Search</button>
-  <button onclick="showAllEvents()">View All Events</button>
-
-  <!-- Show Google Map -->
-  <div id="map"></div>
-
-  <!-- Display Lisst of Events -->
-  <div id="eventsContainer"></div>
-  
-  <script>
-    const events = <%- JSON.stringify(events) %>;
-    let map;
-    let markers = [];
-
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 47.608013, lng: -122.335167 }, // Seattle center
-        zoom: 11,
-      });
-
-      showAllEvents(); // Show all on page load
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
     }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 8px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    /* Modal styles - Close button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    /* Modal styles - Date to side */
+    .event-date {
+      text-align: center;
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 6px;
+      width: 80px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .event-date .day {
+      font-size: 32px;
+      font-weight: bold;
+      line-height: 1;
+    }
+    .event-date .month {
+      font-size: 16px;
+      color: #666;
+    }
+    .event-details {
+      flex: 1;
+    }
+    </style>
+    <!-- Script to Load Google Mapps API to Page -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASy5UVV-2EFbOZFsatHtumZ1VEFY_84rU"></script>
+  </head>
+  <body>
+    <!-- Page Header -->
+    <h1>Find Events by ZIP Code</h1>
 
-    function addMarkers(eventList) {
-      clearMarkers();
-      eventList.forEach(event => {
-        const marker = new google.maps.Marker({
-          position: { lat: event.lat, lng: event.lng },
-          map: map,
-          title: event.name,
+    <!-- Search Events Form -->
+    <input type="text" id="zipCodeInput" placeholder="Enter ZIP Code" />
+    <button onclick="filterEvents()">Search</button>
+    <button onclick="showAllEvents()">View All Events</button>
+    
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Events Container -->
+    <div id="eventsContainer"></div>
+     
+    <!-- Modal for Event Details -->
+    <div id="eventModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="event-date" id="eventDateBox"></div>
+        <div class="event-details" id="eventDetailsContent"></div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT FUNCTIONALITY -->
+    <script>
+      /* Gets Event Data from Event Controller */
+      const events = <%- JSON.stringify(events) %>;
+      let map;
+      let markers = [];
+      
+      /* Creates the Map and centers it to downtown seattle */
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 47.608013, lng: -122.335167 },
+          zoom: 11,
         });
-        markers.push(marker);
-      });
-    }
-
-    function clearMarkers() {
-      markers.forEach(marker => marker.setMap(null));
-      markers = [];
-    }
-
-    function renderEventList(eventList) {
-      if (eventList.length === 0) {
-        document.getElementById("eventsContainer").innerHTML = "<p>No events found.</p>";
-        clearMarkers();
-        return;
+        /* Displays All Events */
+        showAllEvents();
       }
+      
+      /* Adds Maker on Map */
+      function addMarkers(eventList) {
+        clearMarkers();
+        eventList.forEach(event => {
+          const marker = new google.maps.Marker({
+            position: { lat: event.lat, lng: event.lng },
+            map: map,
+            title: event.name,
+          });
+          /* Show Event Details when Click on Marker */
+          marker.addListener('click', () => {
+            showEventDetails(event.id);
+          });
+          markers.push(marker);
+        });
+      }
+      
+      /* Clear Markers */
+      function clearMarkers() {
+        markers.forEach(marker => marker.setMap(null));
+        markers = [];
+      }
+      
+      /* Displays List of Events in HTML */
+      function renderEventList(eventList) {
+        if (eventList.length === 0) {
+          document.getElementById("eventsContainer").innerHTML = "<p>No events found.</p>";
+          clearMarkers();
+          return;
+        }
+        document.getElementById("eventsContainer").innerHTML = eventList.map(event => `
+          <div class="event">
+            <h3 class="clickable" onclick="showEventDetails('${event.id}')">${event.name}</h3>
+            <p><strong>Date:</strong> ${event.date}</p>
+            <p><strong>Location (ZIP):</strong> ${event.location}</p>
+          </div>`).join("");
+        addMarkers(eventList);
+      }
+      
+      /* Filter Events by Zip Code */
+      function filterEvents() {
+        const zip = document.getElementById("zipCodeInput").value.trim();
+        const filtered = events.filter(e => e.location === zip);
+        renderEventList(filtered);
+      }
+      
+      /* Show All Events */
+      function showAllEvents() {
+        document.getElementById("zipCodeInput").value = "";
+        renderEventList(events);
+      }
+      
+      /* Sends Request to RSVP to Specific Event by ID */
+      function rsvpToEvent(eventId) {
+        fetch('/user/rsvp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ eventId })
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+        })
+        .catch(err => {
+          alert("RSVP failed");
+          console.error(err);
+        });
+      }
+      
+      /* Convert Lat and Lng to an Address */
+      function getAddressFromLatLng(lat, lng, callback) {
+        const geocoder = new google.maps.Geocoder();
+        const latlng = { lat, lng };
+        
+        geocoder.geocode({ location: latlng }, (results, status) => {
+          if (status === "OK" && results[0]) {
+            callback(results[0].formatted_address);
+          } else {
+            callback("Address not found");
+          }
+        });
+      }
+      
+      /* Popup Display Details */
+      function showEventDetails(eventId) {
+        const event = events.find(e => e.id === eventId);
+        if (!event) return;
+        
+        /* Formats Date */
+        const dateParts = event.date.split("-");
+        const day = parseInt(dateParts[2]);
+        const month = new Date(event.date).toLocaleString('default', { month: 'short' });
 
-      document.getElementById("eventsContainer").innerHTML = eventList.map(event => `
-        <div class="event">
-          <h3>${event.name}</h3>
-          <p><strong>Date:</strong> ${event.date}</p>
-          <p><strong>Description:</strong> ${event.description}</p>
-          <p><strong>ZIP:</strong> ${event.location}</p>
-          <button onclick="rsvpToEvent('${event.id}')">RSVP</button>
-        </div>
-      `).join("");
-
-      addMarkers(eventList);
-    }
-
-    function filterEvents() {
-      const zip = document.getElementById("zipCodeInput").value.trim();
-      const filtered = events.filter(e => e.location === zip);
-      renderEventList(filtered);
-    }
-
-    function showAllEvents() {
-      document.getElementById("zipCodeInput").value = "";
-      renderEventList(events);
-    }
-
-    function rsvpToEvent(eventId) {
-      fetch('/user/rsvp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventId })
-      })
-      .then(res => res.json())
-      .then(data => {
-        alert(data.message);
-      })
-      .catch(err => {
-        alert("RSVP failed");
-        console.error(err);
-      });
-    }
-
-    window.onload = initMap;
-  </script>
-</body>
+        /* Formats Time */
+        const [hourStr, minute] = event.time.split(':');
+        let hour = parseInt(hourStr);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        hour = hour % 12 || 12;
+        const formattedTime = `${hour}:${minute} ${ampm}`;
+        
+        /* Date Sidebar */
+        document.getElementById("eventDateBox").innerHTML = `
+          <div class="day">${day}</div>
+          <div class="month">${month}</div>`;
+        
+          /* Get Address from Lat/Lng */
+        getAddressFromLatLng(event.lat, event.lng, function(address) {
+          document.getElementById("eventDetailsContent").innerHTML = `
+            <h3>${event.name}</h3>
+            <p><strong>Description:</strong> ${event.description}</p>
+            <p><strong>Time:</strong> ${formattedTime}</p>
+            <p><strong>Address:</strong> ${address}</p>
+            <button onclick=\"rsvpToEvent('${event.id}')\">RSVP as Avery</button>`;
+        });
+        
+        /* Open Model and Center Map to Event */
+        document.getElementById("eventModal").style.display = "block";
+        map.setCenter({ lat: event.lat, lng: event.lng });
+        map.setZoom(14);
+      }
+      
+      /* Close Modal */
+      function closeModal() {
+        document.getElementById("eventModal").style.display = "none";
+      }
+      
+      /* Click Anywhere outside Modal Closes Popup */
+      window.onclick = function(event) {
+        const modal = document.getElementById("eventModal");
+        if (event.target == modal) {
+          closeModal();
+        }
+      }
+      
+      /* Display Map on load */
+      window.onload = initMap;
+    </script>
+  </body>
 </html>

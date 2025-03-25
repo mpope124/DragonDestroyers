@@ -8,9 +8,12 @@ and view events the User has RSVP'ed to.
   <div> 
     <h1><%= user.name %></h1>
     <img src="/images/default-user.png" alt="Avery Lane" class="profile-pic">
+    
     <p>
       <span>Email:</span> <%= user.email %><br>
       <span>Phone Number:</span> <%= user.phone %><br>
+
+      <!-- Edit User Info -->
       <a href="/user/edit">Edit User Details</a>
     </p>
   </div>
@@ -19,6 +22,7 @@ and view events the User has RSVP'ed to.
   <div>
     <h2>Events you have joined:</h2>
 
+    <!-- RSVP Events List -->
     <% if (userEvents.length === 0) { %>
       <p>You haven't RSVP'd to any events yet.</p>
     <% } else { %>
@@ -28,20 +32,18 @@ and view events the User has RSVP'ed to.
           <p><strong>Location:</strong> <%= event.location %></p>
           <p><strong>Date:</strong> <%= event.date %></p>
           <p><strong>Description:</strong> <%= event.description %></p>
-          <p><strong>Event ID:</strong> <%= event.id %></p>
 
           <!-- Cancel RSVP Button -->
           <form action="/user/cancel-rsvp" method="POST" style="margin-top: 10px;">
             <input type="hidden" name="eventId" value="<%= event.id %>">
             <button type="submit" style="color: red;">Cancel RSVP</button>
           </form>
-
           <hr/>
         </div>
       <% }) %>
     <% } %>
   </div>
-
+  
   <!-- Return Home -->
   <a href="/">Return Home</a>
 </body>
