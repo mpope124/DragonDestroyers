@@ -101,6 +101,7 @@ and a modal popup with full event details and RSVP functionality.
     <input type="text" id="zipCodeInput" placeholder="Enter ZIP Code" />
     <button onclick="filterEvents()">Search</button>
     <button onclick="showAllEvents()">View All Events</button>
+    <br>
     
     <!-- Map Container -->
     <div id="map"></div>
@@ -246,7 +247,7 @@ and a modal popup with full event details and RSVP functionality.
             <p><strong>Description:</strong> ${event.description}</p>
             <p><strong>Time:</strong> ${formattedTime}</p>
             <p><strong>Address:</strong> ${address}</p>
-            <button onclick=\"rsvpToEvent('${event.id}')\">RSVP as Avery</button>`;
+            <button onclick=\"rsvpToEvent('${event.id}')\">RSVP</button>`;
         });
         
         /* Open Model and Center Map to Event */
