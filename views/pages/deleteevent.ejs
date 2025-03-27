@@ -2,10 +2,20 @@
   <title>Delete Event</title>
 </head>
 <body>
-  <h1>Delete an Event</h1>
-  
+  <!-- Navbar -->
+  <ul class = "nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/event/add">Add Event</a></li>
+    <li><a href="/event/delete" class = "active">Delete Event</a></li>
+    <li><a href="/userpage">User Profile</a></li>
+    <li><a href="/events/zip">Find Events by ZIP</a></li>
+
+  </ul>  
+  <h1 class="heading">Delete an Event</h1>
+
+
   <!-- Form to EventController.handleDeleteForm -->
-  <form action="/events/local/delete" method="POST">
+  <form action="/events/local/delete" method="POST" class = "inputForm">
     <label>Select Event to Delete:</label><br>
     <select name="id" required>
       <% events.forEach(event => { %>
@@ -19,5 +29,4 @@
   
   <br>
   
-  <a href="/">Return Home</a>
 </body>

@@ -94,6 +94,17 @@ and a modal popup with full event details and RSVP functionality.
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASy5UVV-2EFbOZFsatHtumZ1VEFY_84rU"></script>
   </head>
   <body>
+    <!-- Navbar -->
+  
+    <ul class = "nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/event/add">Add Event</a></li>
+    <li><a href="/event/delete">Delete Event</a></li>
+    <li><a href="/userpage">User Profile</a></li>
+    <li class = "active"><a href="/events/zip">Find Events by ZIP</a></li>
+
+  </ul>
+
     <!-- Page Header -->
     <h1>Find Events by ZIP Code</h1>
 
@@ -272,7 +283,5 @@ and a modal popup with full event details and RSVP functionality.
       /* Display Map on load */
       window.onload = initMap;
     </script>
-<!-- Return Home -->
-  <a href="/">Return Home</a>
   </body>
 </html>

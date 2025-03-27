@@ -4,6 +4,16 @@ This page will allow the User to view/edit their information
 and view events the User has RSVP'ed to. 
 -->
 <body>
+  <!-- Navbar -->
+  <ul class = "nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/event/add">Add Event</a></li>
+    <li><a href="/event/delete">Delete Event</a></li>
+    <li class = "active"><a href="/userpage">User Profile</a></li>
+    <li><a href="/events/zip">Find Events by ZIP</a></li>
+
+  </ul>
+
   <!-- User Info -->
   <div> 
     <h1><%= user.name %></h1>
@@ -44,6 +54,4 @@ and view events the User has RSVP'ed to.
     <% } %>
   </div>
   
-  <!-- Return Home -->
-  <a href="/">Return Home</a>
 </body>
